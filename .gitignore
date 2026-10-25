@@ -1,0 +1,13 @@
+*.pyc
+.venv/
+__pycache__/
+cache_infer/
+data/
+logs/
+runs/
+submissions/*.zip
+submissions/submission.csv
+weights_tmp/
+dist/
+weights/**/*.pt
+weights_trained/

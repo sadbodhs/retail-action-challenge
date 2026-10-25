@@ -1,0 +1,2 @@
+# The Dockerfile copies nothing from the repository: send no build context.
+*
