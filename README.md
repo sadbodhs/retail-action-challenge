@@ -4,7 +4,8 @@ Entry for the [RetailAction Challenge](https://www.kaggle.com/competitions/retai
 detect shopper–shelf interactions in dual-view top-view retail clips, localise each one in time
 (start/end in [0, 1]) and in space (the touch point in both camera views).
 
-**Final submission (v10): public leaderboard mAP Global 0.9327**, local validation 0.901.
+**Final result: 4th of 12 teams, private leaderboard mAP Global 0.9300** (final submission v10; public leaderboard 0.9327,
+local validation 0.901).
 
 Trained weights: [huggingface.co/Sadbodh/retail-action-weights](https://huggingface.co/Sadbodh/retail-action-weights) (fetched by `scripts/download_weights.sh`).
 
@@ -124,8 +125,9 @@ v8, v9 and v10; the `weights/v2` to `weights/v6` sets named below are not publis
 | **v9**: v8 recipe retrained on train + test + validation (`weights/v9`, `scripts/retrain_all.sh`) | train + test + val | – (no held-out split) | `submissions/v9_alldata.csv`: public LB 0.9298 |
 | **v10**: v8 + ConvNeXt-V2-B (timm, ImageNet-22k) as a second zoom refiner and a second full-frame model, averaged with the v8 ones (`weights/v10`) | train + test | **0.901** | `submissions/v10_v2b.csv`: **public LB 0.9327** (4th of 10 at submission) |
 
-Ranks are the team's position among 10 teams on the public leaderboard on the day each file was submitted; the
-final ranking is decided on the private leaderboard.
+Ranks in the table are the team's position among 10 teams on the public leaderboard on the day each file was
+submitted. Final private leaderboard: 4th of 12 teams. Private scores: v10 0.9300 (the counted entry), v9 0.9307,
+v8 0.9299, v6 0.9150, v5 0.9101, v4 0.9079, v2 0.8565.
 
 Organisers' MViT-b DETR baseline: 0.417 (paper, test split) / 0.391 (public leaderboard).
 
