@@ -4,8 +4,16 @@ Entry for the [RetailAction Challenge](https://www.kaggle.com/competitions/retai
 detect shopper–shelf interactions in dual-view top-view retail clips, localise each one in time
 (start/end in [0, 1]) and in space (the touch point in both camera views).
 
-**Final result: 4th of 12 teams, private leaderboard mAP Global 0.9300** (final submission v10; public leaderboard 0.9327,
-local validation 0.901).
+**Final result: 2nd of 11 teams, mAP Global 0.9234** on the private test split with the organisers' corrected metric
+(official final results, announced 2 November 2026). Final submission v10, local validation 0.901.
+
+- Invited to present the method in the Challenge session of the
+  [PRAW workshop](https://praw-workshop.github.io/) at WACV 2027 (4 January 2027).
+- Co-author of the challenge summary paper, "The RetailAction Challenge at PRAW 2027: Multi-View Shopper-Shelf
+  Interaction Localization", accepted at PRAW 2027.
+- After the competition closed, the organisers found an error in how the original metric integrated average precision.
+  They rescored every team's selected final submissions with the corrected metric, and those scores are the official
+  results. The Kaggle leaderboard still shows the original scores (ours: 4th of 12, private 0.9300, public 0.9327).
 
 Trained weights: [huggingface.co/Sadbodh/retail-action-weights](https://huggingface.co/Sadbodh/retail-action-weights) (fetched by `scripts/download_weights.sh`).
 
@@ -78,7 +86,10 @@ Two stages plus a rescoring step.
 Median touch-point error on validation (v8): 0.094 m after stage 1, 0.045 m after stage 2.
 
 **Metric** (`ra/metric.py`): our re-implementation of mAP Global (tIoU 0.05–0.5 × distance 1.0–0.05 m,
-metres per pixel from bone lengths, 101 confidence thresholds). The official scorer is not public.
+metres per pixel from bone lengths, 101 confidence thresholds). It weights each recall step by the precision at the
+new threshold, the same rule as the organisers' corrected scorer, the public Kaggle notebook
+[map-global-metric-code](https://www.kaggle.com/code/davidemaz/map-global-metric-code) (version 5). We have not
+compared the two implementations on the same files.
 
 ## Train from scratch
 
@@ -126,10 +137,15 @@ v8, v9 and v10; the `weights/v2` to `weights/v6` sets named below are not publis
 | **v10**: v8 + ConvNeXt-V2-B (timm, ImageNet-22k) as a second zoom refiner and a second full-frame model, averaged with the v8 ones (`weights/v10`) | train + test | **0.901** | `submissions/v10_v2b.csv`: **public LB 0.9327** (4th of 10 at submission) |
 
 Ranks in the table are the team's position among 10 teams on the public leaderboard on the day each file was
-submitted. Final private leaderboard: 4th of 12 teams. Private scores: v10 0.9300 (the counted entry), v9 0.9307,
-v8 0.9299, v6 0.9150, v5 0.9101, v4 0.9079, v2 0.8565.
+submitted. Public and private leaderboard scores use the original metric. Original private leaderboard: 4th of 12
+teams. Private scores: v10 0.9300 (the counted entry), v9 0.9307, v8 0.9299, v6 0.9150, v5 0.9101, v4 0.9079,
+v2 0.8565.
 
-Organisers' MViT-b DETR baseline: 0.417 (paper, test split) / 0.391 (public leaderboard).
+Official final result with the corrected metric: **2nd of 11 teams, 0.9234** (1st 0.9553, 3rd 0.9167). The
+organisers published one corrected score per team, not per submission file.
+
+Organisers' MViT-b DETR baseline: 0.417 (paper, test split) / 0.391 (public leaderboard) / 0.394 (corrected metric,
+private test split).
 
 ## Tried and not kept
 
